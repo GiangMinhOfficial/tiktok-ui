@@ -10,7 +10,6 @@ import {
   faLanguage,
   faCircleQuestion,
   faKeyboard,
-  faCloudUpload,
   faGear,
   faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
@@ -29,6 +28,8 @@ import styles from './Header.module.scss';
 import images from '~/assets/images';
 import AccountItem from '~/components/AccountItem';
 import { faTiktok } from '@fortawesome/free-brands-svg-icons';
+import { UploadIcon } from '~/components/Icon';
+import Image from '~/components/Image';
 
 const cx = classNames.bind(styles);
 
@@ -149,7 +150,7 @@ function Header() {
             <>
               <Tippy delay={[0, 300]} content="Upload video" placement="bottom">
                 <button className={cx('action-btn')}>
-                  <FontAwesomeIcon icon={faCloudUpload} />
+                  <UploadIcon />
                 </button>
               </Tippy>
             </>
@@ -168,10 +169,11 @@ function Header() {
             onChange={handleMenuChange}
           >
             {currentUser ? (
-              <img
+              <Image
                 className={cx('user-avatar')}
                 src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/c96ae6fd611fa3044748b324bbd5bf4e.jpeg?x-expires=1694480400&x-signature=2tWNf%2F2znYVzcz%2B83W0jS5y1TuA%3D"
                 alt=""
+                fallback="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/fcef1b260389cac353abdd2af94d075b~c5_100x100.jpeg?x-expires=1694505600&x-signature=YpZ0kTAHJS9EWSVJKqMT9aMPPAU%3D"
               />
             ) : (
               <button className={cx('menu')}>
