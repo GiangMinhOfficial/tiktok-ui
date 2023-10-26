@@ -1,10 +1,6 @@
-import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faCircleXmark,
-  faSpinner,
-  faMagnifyingGlass,
   faPlus,
   faEllipsisVertical,
   faLanguage,
@@ -19,17 +15,18 @@ import {
   faLightbulb,
 } from '@fortawesome/free-regular-svg-icons';
 import Tippy from '@tippyjs/react';
-import HeadlessTippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
 
 import Button from '~/components/Button';
-import { Wrapper as PopperWrapper, Menu } from '~/components/Popper';
+import { Menu } from '~/components/Popper';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
-import AccountItem from '~/components/AccountItem';
+
 import { faTiktok } from '@fortawesome/free-brands-svg-icons';
-import { UploadIcon } from '~/components/Icon';
+import { InboxIcon, MessageIcon, UploadIcon } from '~/components/Icon';
 import Image from '~/components/Image';
+
+import Search from '../Search';
 
 const cx = classNames.bind(styles);
 
@@ -63,15 +60,7 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-  const [searchResult, setSearchResult] = useState([]);
-
   const currentUser = true;
-
-  useEffect(() => {
-    setTimeout(() => {
-      setSearchResult([]);
-    }, 0);
-  }, []);
 
   const handleMenuChange = (menuItem) => {};
 
@@ -115,42 +104,26 @@ function Header() {
       <div className={cx('inner')}>
         <img src={images.logo} alt="Tiktok" />
 
-        <HeadlessTippy
-          interactive
-          visible={searchResult.length > 0}
-          render={(attrs) => (
-            <div className={cx('search-result')} tabIndex="-1" {...attrs}>
-              <PopperWrapper>
-                <h4 className={cx('search-title')}>Accounts</h4>
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
-              </PopperWrapper>
-            </div>
-          )}
-        >
-          <div className={cx('search')}>
-            <input placeholder="Search" spellCheck={false} />
-
-            <button className={cx('clear')}>
-              <FontAwesomeIcon icon={faCircleXmark} />
-            </button>
-
-            <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-
-            <button className={cx('search-btn')}>
-              <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </button>
-          </div>
-        </HeadlessTippy>
+        <Search />
 
         <div className={cx('actions')}>
           {currentUser ? (
             <>
-              <Tippy delay={[0, 300]} content="Upload video" placement="bottom">
+              <Tippy delay={[0, 50]} content="Upload video" placement="bottom">
                 <button className={cx('action-btn')}>
                   <UploadIcon />
+                </button>
+              </Tippy>
+
+              <Tippy delay={[0, 50]} content="Message" placement="bottom">
+                <button className={cx('action-btn')}>
+                  <MessageIcon />
+                </button>
+              </Tippy>
+
+              <Tippy delay={[0, 50]} content="Message" placement="bottom">
+                <button className={cx('action-btn')}>
+                  <InboxIcon />
                 </button>
               </Tippy>
             </>
@@ -171,9 +144,9 @@ function Header() {
             {currentUser ? (
               <Image
                 className={cx('user-avatar')}
-                src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/c96ae6fd611fa3044748b324bbd5bf4e.jpeg?x-expires=1694480400&x-signature=2tWNf%2F2znYVzcz%2B83W0jS5y1TuA%3D"
+                src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/1c278d2f602e0d466c439ee326427e0a~c5_100x100.jpeg?x-expires=1698476400&x-signature=lIdtqucGhEumgqJVKvYfRj6kC9I%3D"
                 alt=""
-                fallback="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/fcef1b260389cac353abdd2af94d075b~c5_100x100.jpeg?x-expires=1694505600&x-signature=YpZ0kTAHJS9EWSVJKqMT9aMPPAU%3D"
+                // fallback="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/fcef1b260389cac353abdd2af94d075b~c5_100x100.jpeg?x-expires=1694505600&x-signature=YpZ0kTAHJS9EWSVJKqMT9aMPPAU%3D"
               />
             ) : (
               <button className={cx('menu')}>
